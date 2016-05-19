@@ -36,7 +36,7 @@ public class GameController : MonoBehaviour
         else
             cubeMesh.material = red;
 		
-        if ( Input.GetButtonDown( "Jump" ) )
+        if ( Input.GetButtonDown( "Stealth" ) )
         {
             if ( canMove )
                 Debug.Log( "OK!" );
@@ -47,13 +47,18 @@ public class GameController : MonoBehaviour
 	
     private IEnumerator PlayBeat()
     {
-        yield return new WaitForSeconds( beat - tolerance / 2 );
+        float halfTolerance = tolerance / 2;
+
+        yield return new WaitForSeconds( beat - halfTolerance );
 		
         while ( true )
         {
             canMove = true;
             audioSource.Play(); // Placeholder per la musica.
-            yield return new WaitForSeconds( tolerance );
+            yield return new WaitForSeconds( halfTolerance );
+
+            // ToDo: Chiama la funzione movimento di ogni torretta.
+            yield return new WaitForSeconds( halfTolerance );
 			
             canMove = false;
             yield return new WaitForSeconds( beat - tolerance );
